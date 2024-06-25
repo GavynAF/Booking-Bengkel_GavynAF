@@ -27,11 +27,23 @@ public class Reservation {
         this.customer = customer;
         this.employee = employee;
         this.services = services;
-        this.reservationPrice = calculateReservationPrice();
+        this.reservationPrice = reservationPrice;
         this.workstage = workstage;
     };
 
-    private double calculateReservationPrice(){
-        return 0;
+
+    public double calculateReservationPrice(String membershipname){
+        double diskon = 0;
+        double totalHarga = 0;
+        for (Service service : services) {
+            totalHarga += service.getPrice();
+        }
+
+        if (membershipname.equalsIgnoreCase("gold")) {
+            diskon = 0.1;
+        } else if(membershipname.equalsIgnoreCase("silver")){
+            diskon = 0.05;
+        } 
+        return totalHarga*(1-diskon);
     }
 }
